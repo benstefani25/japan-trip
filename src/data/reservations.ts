@@ -1,0 +1,140 @@
+export interface Reservation {
+  id: string;
+  date: string;
+  time?: string;
+  type: 'restaurant' | 'hotel' | 'train' | 'activity' | 'flight';
+  name: string;
+  confirmationNumber?: string;
+  partySize?: number;
+  notes?: string;
+  documentPath?: string;
+  itineraryDay: number;
+  address?: string;
+  status: 'confirmed' | 'pending' | 'needed';
+}
+
+export const reservations: Reservation[] = [
+  {
+    id: 'flight-ord-nrt',
+    date: '2026-04-23',
+    time: '11:25 AM',
+    type: 'flight',
+    name: 'United Airlines ORD → NRT (UA 881)',
+    confirmationNumber: 'UA7K3MX',
+    partySize: 4,
+    notes: "Departs Chicago O'Hare Terminal 1. Arrives Narita April 24 ~3:15 PM local time. Check-in opens 24 hrs before departure.",
+    itineraryDay: 0,
+    status: 'confirmed',
+  },
+  {
+    id: 'hotel-daiwa-roynet',
+    date: '2026-04-24',
+    time: '3:00 PM',
+    type: 'hotel',
+    name: 'Daiwa Roynet Hotel Tokyo Kyobashi PREMIER',
+    confirmationNumber: 'DRH-924817',
+    partySize: 4,
+    notes: 'Check-in from 3:00 PM. Check-out by 11:00 AM. 1 night stay. Near Tokyo Station (Kyobashi exit). Two connecting rooms reserved.',
+    itineraryDay: 1,
+    address: '3-3-3 Kyobashi, Chuo-ku, Tokyo 104-0031',
+    status: 'confirmed',
+  },
+  {
+    id: 'train-tokyo-kyoto',
+    date: '2026-04-25',
+    time: '9:00 AM',
+    type: 'train',
+    name: 'Shinkansen (Nozomi) Tokyo → Kyoto',
+    partySize: 4,
+    notes: 'Approx 2 hrs 15 min. Reserve seats via SmartEX app or at JR ticket counter. Green Car (first class) recommended for luggage space.',
+    itineraryDay: 2,
+    address: 'Tokyo Station, Marunouchi, Chiyoda-ku, Tokyo',
+    status: 'needed',
+  },
+  {
+    id: 'hotel-blossom-kyoto',
+    date: '2026-04-25',
+    time: '3:00 PM',
+    type: 'hotel',
+    name: 'The Blossom Kyoto',
+    confirmationNumber: 'BKY-2026-04587',
+    partySize: 4,
+    notes: 'Check-in from 3:00 PM. Check-out by 11:00 AM. 4-night stay (April 25-29). Located near Shijo-Karasuma. Two rooms booked.',
+    itineraryDay: 2,
+    address: '235 Nishiiromonocho, Shimogyo-ku, Kyoto 600-8412',
+    status: 'confirmed',
+  },
+  {
+    id: 'activity-tea-ceremony',
+    date: '2026-04-28',
+    time: '2:00 PM',
+    type: 'activity',
+    name: 'Traditional Tea Ceremony Experience',
+    partySize: 4,
+    notes: 'Book through Camellia Garden Kyoto or En Tea Ceremony. ~60-90 min session. Wear socks (no bare feet). Kneel on tatami — mention if anyone needs chair seating.',
+    itineraryDay: 5,
+    address: 'Gion district, Kyoto (exact venue TBD)',
+    status: 'needed',
+  },
+  {
+    id: 'train-kyoto-tokyo',
+    date: '2026-04-29',
+    time: '10:00 AM',
+    type: 'train',
+    name: 'Shinkansen (Nozomi) Kyoto → Tokyo',
+    partySize: 4,
+    notes: 'Approx 2 hrs 15 min. April 29 is Showa Day (national holiday) — trains may be busier. Book reserved seats in advance.',
+    itineraryDay: 6,
+    address: 'Kyoto Station, Shimogyo-ku, Kyoto',
+    status: 'needed',
+  },
+  {
+    id: 'hotel-keio-plaza',
+    date: '2026-04-29',
+    time: '2:00 PM',
+    type: 'hotel',
+    name: 'Keio Plaza Hotel Tokyo Shinjuku',
+    confirmationNumber: 'KPH-TYO-338192',
+    partySize: 4,
+    notes: 'Check-in from 2:00 PM. Check-out by 11:00 AM. 4-night stay (April 29 - May 3). South Tower — two connecting rooms. Close to Shinjuku Station west exit.',
+    itineraryDay: 6,
+    address: '2-2-1 Nishi-Shinjuku, Shinjuku-ku, Tokyo 160-8330',
+    status: 'confirmed',
+  },
+  {
+    id: 'restaurant-hikiniku',
+    date: '2026-04-30',
+    time: '6:30 PM',
+    type: 'restaurant',
+    name: 'Hikiniku to Come (挽肉と米)',
+    confirmationNumber: 'HKN-043026-1830',
+    partySize: 4,
+    notes: 'Famous hamburger steak & fresh rice restaurant. Expect a wait even with reservation. Located in Shibuya. No substitutions — set menu only.',
+    itineraryDay: 7,
+    address: '1-20-2 Dogenzaka, Shibuya-ku, Tokyo 150-0043',
+    status: 'confirmed',
+  },
+  {
+    id: 'activity-teamlab',
+    date: '2026-05-01',
+    type: 'activity',
+    name: 'teamLab Borderless (Azabudai Hills)',
+    partySize: 4,
+    notes: 'Book timed-entry tickets online at teamlab.art. Wear comfortable clothes (some exhibits have mirror floors). Allow 2-3 hrs. Located in Azabudai Hills, Minato-ku.',
+    itineraryDay: 8,
+    address: 'Azabudai Hills Garden Plaza B, Minato-ku, Tokyo',
+    status: 'needed',
+  },
+  {
+    id: 'flight-nrt-ord',
+    date: '2026-05-03',
+    time: '5:30 PM',
+    type: 'flight',
+    name: 'United Airlines NRT → ORD (UA 882)',
+    confirmationNumber: 'UA7K3MX',
+    partySize: 4,
+    notes: "Departs Narita Terminal 1. Arrives Chicago O'Hare same day ~3:45 PM local time. Allow extra time — May 3 is Constitution Memorial Day (Golden Week).",
+    itineraryDay: 10,
+    status: 'confirmed',
+  },
+];
