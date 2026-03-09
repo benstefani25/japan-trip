@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { diningGuide } from "@/data/dining";
+import { useState, useMemo, useEffect } from "react";
+import { diningGuide, type DiningSpot } from "@/data/dining";
 import {
   MapPin,
   ExternalLink,
@@ -9,6 +9,8 @@ import {
   Search,
   X,
   SlidersHorizontal,
+  Plus,
+  Trash2,
 } from "lucide-react";
 
 const typeFilters = [
@@ -35,6 +37,7 @@ const cuisineFilters = [
   "Western / Fusion",
   "Coffee / Kissaten",
   "Cocktails / Whisky",
+  "Pizza / Italian",
 ];
 
 const cityFilters = ["All", "Tokyo", "Kyoto"];
@@ -71,6 +74,303 @@ function ReservationBadge({ status }: { status: string }) {
   );
 }
 
+const CUSTOM_SPOTS_KEY = "japan-trip-custom-spots";
+
+function loadCustomSpots(): DiningSpot[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const stored = localStorage.getItem(CUSTOM_SPOTS_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveCustomSpots(spots: DiningSpot[]) {
+  localStorage.setItem(CUSTOM_SPOTS_KEY, JSON.stringify(spots));
+}
+
+interface AddSpotFormProps {
+  onAdd: (spot: DiningSpot) => void;
+  onClose: () => void;
+}
+
+function AddSpotForm({ onAdd, onClose }: AddSpotFormProps) {
+  const [name, setName] = useState("");
+  const [nameJa, setNameJa] = useState("");
+  const [type, setType] = useState<DiningSpot["type"]>("restaurant");
+  const [cuisine, setCuisine] = useState("");
+  const [city, setCity] = useState<"Tokyo" | "Kyoto">("Tokyo");
+  const [neighborhood, setNeighborhood] = useState("");
+  const [description, setDescription] = useState("");
+  const [whatToOrder, setWhatToOrder] = useState("");
+  const [priceRange, setPriceRange] = useState<DiningSpot["priceRange"]>("¥¥");
+  const [reservationStatus, setReservationStatus] =
+    useState<DiningSpot["reservationStatus"]>("Walk-in OK");
+  const [mapsLink, setMapsLink] = useState("");
+  const [website, setWebsite] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name || !neighborhood) return;
+
+    const spot: DiningSpot = {
+      id: `custom-${Date.now()}`,
+      name,
+      nameJa: nameJa || undefined,
+      type,
+      cuisineStyle: cuisine
+        .split(",")
+        .map((c) => c.trim())
+        .filter(Boolean),
+      city,
+      neighborhood,
+      description: description || `A ${type} in ${neighborhood}, ${city}.`,
+      whatToOrder: whatToOrder || undefined,
+      priceRange,
+      reservationStatus,
+      mapsLink: mapsLink || undefined,
+      website: website || undefined,
+      tags: [
+        type,
+        city.toLowerCase(),
+        neighborhood.toLowerCase(),
+        ...cuisine
+          .split(",")
+          .map((c) => c.trim().toLowerCase())
+          .filter(Boolean),
+      ],
+    };
+
+    onAdd(spot);
+  };
+
+  return (
+    <div className="card p-4 mb-4 animate-in border-2 border-crimson/20">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-serif text-lg font-semibold text-ink">
+          Add New Spot
+        </h3>
+        <button
+          onClick={onClose}
+          className="text-ink-light hover:text-ink transition-colors"
+        >
+          <X size={18} />
+        </button>
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-3">
+        {/* Row 1: Name + Japanese name */}
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="text-xs font-medium text-ink-light block mb-1">
+              Name *
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="e.g. Sushi Saito"
+              required
+              className="w-full px-3 py-2 rounded-lg bg-white border border-stone-light text-sm text-ink placeholder:text-slate focus:outline-none focus:ring-2 focus:ring-crimson/20 focus:border-crimson"
+            />
+          </div>
+          <div>
+            <label className="text-xs font-medium text-ink-light block mb-1">
+              Japanese Name
+            </label>
+            <input
+              type="text"
+              value={nameJa}
+              onChange={(e) => setNameJa(e.target.value)}
+              placeholder="e.g. 鮨さいとう"
+              className="w-full px-3 py-2 rounded-lg bg-white border border-stone-light text-sm text-ink placeholder:text-slate focus:outline-none focus:ring-2 focus:ring-crimson/20 focus:border-crimson"
+            />
+          </div>
+        </div>
+
+        {/* Row 2: Type + City + Neighborhood */}
+        <div className="grid grid-cols-3 gap-3">
+          <div>
+            <label className="text-xs font-medium text-ink-light block mb-1">
+              Type *
+            </label>
+            <select
+              value={type}
+              onChange={(e) => setType(e.target.value as DiningSpot["type"])}
+              className="w-full px-3 py-2 rounded-lg bg-white border border-stone-light text-sm text-ink focus:outline-none focus:ring-2 focus:ring-crimson/20"
+            >
+              <option value="restaurant">Restaurant</option>
+              <option value="cafe">Cafe</option>
+              <option value="bar">Bar</option>
+              <option value="street-food">Street Food</option>
+              <option value="dessert">Dessert</option>
+              <option value="bakery">Bakery</option>
+            </select>
+          </div>
+          <div>
+            <label className="text-xs font-medium text-ink-light block mb-1">
+              City *
+            </label>
+            <select
+              value={city}
+              onChange={(e) => setCity(e.target.value as "Tokyo" | "Kyoto")}
+              className="w-full px-3 py-2 rounded-lg bg-white border border-stone-light text-sm text-ink focus:outline-none focus:ring-2 focus:ring-crimson/20"
+            >
+              <option value="Tokyo">Tokyo</option>
+              <option value="Kyoto">Kyoto</option>
+            </select>
+          </div>
+          <div>
+            <label className="text-xs font-medium text-ink-light block mb-1">
+              Neighborhood *
+            </label>
+            <input
+              type="text"
+              value={neighborhood}
+              onChange={(e) => setNeighborhood(e.target.value)}
+              placeholder="e.g. Ginza"
+              required
+              className="w-full px-3 py-2 rounded-lg bg-white border border-stone-light text-sm text-ink placeholder:text-slate focus:outline-none focus:ring-2 focus:ring-crimson/20 focus:border-crimson"
+            />
+          </div>
+        </div>
+
+        {/* Row 3: Cuisine tags */}
+        <div>
+          <label className="text-xs font-medium text-ink-light block mb-1">
+            Cuisine / Style (comma-separated)
+          </label>
+          <input
+            type="text"
+            value={cuisine}
+            onChange={(e) => setCuisine(e.target.value)}
+            placeholder="e.g. Sushi, Omakase"
+            className="w-full px-3 py-2 rounded-lg bg-white border border-stone-light text-sm text-ink placeholder:text-slate focus:outline-none focus:ring-2 focus:ring-crimson/20 focus:border-crimson"
+          />
+        </div>
+
+        {/* Row 4: Description */}
+        <div>
+          <label className="text-xs font-medium text-ink-light block mb-1">
+            Description
+          </label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="What makes this place special?"
+            rows={2}
+            className="w-full px-3 py-2 rounded-lg bg-white border border-stone-light text-sm text-ink placeholder:text-slate focus:outline-none focus:ring-2 focus:ring-crimson/20 focus:border-crimson resize-none"
+          />
+        </div>
+
+        {/* Row 5: What to order */}
+        <div>
+          <label className="text-xs font-medium text-ink-light block mb-1">
+            What to Order
+          </label>
+          <input
+            type="text"
+            value={whatToOrder}
+            onChange={(e) => setWhatToOrder(e.target.value)}
+            placeholder="e.g. The omakase lunch set"
+            className="w-full px-3 py-2 rounded-lg bg-white border border-stone-light text-sm text-ink placeholder:text-slate focus:outline-none focus:ring-2 focus:ring-crimson/20 focus:border-crimson"
+          />
+        </div>
+
+        {/* Row 6: Price + Reservation + Links */}
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="text-xs font-medium text-ink-light block mb-1">
+              Price Range
+            </label>
+            <select
+              value={priceRange}
+              onChange={(e) =>
+                setPriceRange(e.target.value as DiningSpot["priceRange"])
+              }
+              className="w-full px-3 py-2 rounded-lg bg-white border border-stone-light text-sm text-ink focus:outline-none focus:ring-2 focus:ring-crimson/20"
+            >
+              <option value="¥">¥ (Budget)</option>
+              <option value="¥¥">¥¥ (Moderate)</option>
+              <option value="¥¥¥">¥¥¥ (Upscale)</option>
+              <option value="¥¥¥¥">¥¥¥¥ (Splurge)</option>
+            </select>
+          </div>
+          <div>
+            <label className="text-xs font-medium text-ink-light block mb-1">
+              Reservation
+            </label>
+            <select
+              value={reservationStatus}
+              onChange={(e) =>
+                setReservationStatus(
+                  e.target.value as DiningSpot["reservationStatus"]
+                )
+              }
+              className="w-full px-3 py-2 rounded-lg bg-white border border-stone-light text-sm text-ink focus:outline-none focus:ring-2 focus:ring-crimson/20"
+            >
+              <option value="Walk-in OK">Walk-in OK</option>
+              <option value="Reservation Recommended">
+                Reservation Recommended
+              </option>
+              <option value="Reserved">Reserved</option>
+              <option value="First-Come First-Served">
+                First-Come First-Served
+              </option>
+            </select>
+          </div>
+        </div>
+
+        {/* Row 7: Links */}
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="text-xs font-medium text-ink-light block mb-1">
+              Google Maps Link
+            </label>
+            <input
+              type="url"
+              value={mapsLink}
+              onChange={(e) => setMapsLink(e.target.value)}
+              placeholder="https://maps.google.com/..."
+              className="w-full px-3 py-2 rounded-lg bg-white border border-stone-light text-sm text-ink placeholder:text-slate focus:outline-none focus:ring-2 focus:ring-crimson/20 focus:border-crimson"
+            />
+          </div>
+          <div>
+            <label className="text-xs font-medium text-ink-light block mb-1">
+              Website
+            </label>
+            <input
+              type="url"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+              placeholder="https://..."
+              className="w-full px-3 py-2 rounded-lg bg-white border border-stone-light text-sm text-ink placeholder:text-slate focus:outline-none focus:ring-2 focus:ring-crimson/20 focus:border-crimson"
+            />
+          </div>
+        </div>
+
+        {/* Submit */}
+        <div className="flex gap-2 pt-1">
+          <button
+            type="submit"
+            className="flex-1 py-2.5 rounded-lg bg-crimson text-white text-sm font-medium hover:bg-crimson-dark transition-colors"
+          >
+            Add Spot
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2.5 rounded-lg border border-stone-light text-sm text-ink-light hover:text-ink transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
 export default function FoodPage() {
   const [search, setSearch] = useState("");
   const [selectedType, setSelectedType] = useState("All");
@@ -78,6 +378,31 @@ export default function FoodPage() {
   const [selectedCity, setSelectedCity] = useState("All");
   const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState("default");
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [customSpots, setCustomSpots] = useState<DiningSpot[]>([]);
+
+  // Load custom spots from localStorage on mount
+  useEffect(() => {
+    setCustomSpots(loadCustomSpots());
+  }, []);
+
+  const allSpots = useMemo(
+    () => [...diningGuide, ...customSpots],
+    [customSpots]
+  );
+
+  const handleAddSpot = (spot: DiningSpot) => {
+    const updated = [...customSpots, spot];
+    setCustomSpots(updated);
+    saveCustomSpots(updated);
+    setShowAddForm(false);
+  };
+
+  const handleDeleteCustomSpot = (id: string) => {
+    const updated = customSpots.filter((s) => s.id !== id);
+    setCustomSpots(updated);
+    saveCustomSpots(updated);
+  };
 
   const toggleCuisine = (cuisine: string) => {
     setSelectedCuisines((prev) =>
@@ -88,7 +413,7 @@ export default function FoodPage() {
   };
 
   const filtered = useMemo(() => {
-    let results = [...diningGuide];
+    let results = [...allSpots];
 
     // Search
     if (search) {
@@ -116,10 +441,19 @@ export default function FoodPage() {
       results = results.filter((s) => s.type === typeMap[selectedType]);
     }
 
-    // Cuisine filter
+    // Cuisine filter — match any term from the filter label against cuisineStyle
     if (selectedCuisines.length > 0) {
       results = results.filter((s) =>
-        selectedCuisines.some((c) => s.cuisineStyle.includes(c))
+        selectedCuisines.some((filterLabel) => {
+          const terms = filterLabel.split(" / ").map((t) => t.trim());
+          return terms.some((term) =>
+            s.cuisineStyle.some(
+              (style) =>
+                style.toLowerCase().includes(term.toLowerCase()) ||
+                term.toLowerCase().includes(style.toLowerCase())
+            )
+          );
+        })
       );
     }
 
@@ -138,7 +472,7 @@ export default function FoodPage() {
     }
 
     return results;
-  }, [search, selectedType, selectedCuisines, selectedCity, sortBy]);
+  }, [search, selectedType, selectedCuisines, selectedCity, sortBy, allSpots]);
 
   const activeFilterCount =
     (selectedType !== "All" ? 1 : 0) +
@@ -148,14 +482,35 @@ export default function FoodPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-6">
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="font-serif text-2xl font-bold text-ink">
-          Food &amp; Drinks Guide
-        </h1>
-        <p className="text-sm text-ink-light mt-1">
-          {diningGuide.length} curated spots across Tokyo &amp; Kyoto
-        </p>
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="font-serif text-2xl font-bold text-ink">
+            Food &amp; Drinks Guide
+          </h1>
+          <p className="text-sm text-ink-light mt-1">
+            {allSpots.length} curated spots across Tokyo &amp; Kyoto
+            {customSpots.length > 0 && (
+              <span className="text-crimson"> · {customSpots.length} custom</span>
+            )}
+          </p>
+        </div>
+        <button
+          onClick={() => setShowAddForm(!showAddForm)}
+          className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+            showAddForm
+              ? "bg-crimson text-white"
+              : "bg-white border border-stone-light text-ink-light hover:text-crimson hover:border-crimson"
+          }`}
+        >
+          <Plus size={16} />
+          Add Spot
+        </button>
       </div>
+
+      {/* Add form */}
+      {showAddForm && (
+        <AddSpotForm onAdd={handleAddSpot} onClose={() => setShowAddForm(false)} />
+      )}
 
       {/* Search */}
       <div className="relative mb-4">
@@ -283,106 +638,127 @@ export default function FoodPage() {
 
       {/* Results count */}
       <p className="text-xs text-ink-light mb-4">
-        Showing {filtered.length} of {diningGuide.length} spots
+        Showing {filtered.length} of {allSpots.length} spots
       </p>
 
       {/* Results */}
       <div className="space-y-3">
-        {filtered.map((spot) => (
-          <div key={spot.id} className="card overflow-hidden animate-in">
-            <div className="p-4">
-              {/* Header row */}
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex-1">
-                  <h3 className="font-serif text-lg font-semibold text-ink leading-snug">
-                    {spot.name}
-                  </h3>
-                  {spot.nameJa && (
-                    <p className="text-xs text-ink-light mt-0.5">
-                      {spot.nameJa}
+        {filtered.map((spot) => {
+          const isCustom = spot.id.startsWith("custom-");
+          return (
+            <div key={spot.id} className={`card overflow-hidden animate-in ${isCustom ? "border-crimson/20 border-2" : ""}`}>
+              <div className="p-4">
+                {/* Header row */}
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-serif text-lg font-semibold text-ink leading-snug">
+                        {spot.name}
+                      </h3>
+                      {isCustom && (
+                        <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-crimson/10 text-crimson">
+                          CUSTOM
+                        </span>
+                      )}
+                    </div>
+                    {spot.nameJa && (
+                      <p className="text-xs text-ink-light mt-0.5">
+                        {spot.nameJa}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <PriceRange range={spot.priceRange} />
+                    {isCustom && (
+                      <button
+                        onClick={() => handleDeleteCustomSpot(spot.id)}
+                        className="text-ink-light hover:text-crimson transition-colors"
+                        title="Remove custom spot"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {spot.cuisineStyle.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className="tag tag-restaurant"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                  <ReservationBadge status={spot.reservationStatus} />
+                </div>
+
+                {/* Description */}
+                <p className="text-sm text-ink-light mt-2 leading-relaxed">
+                  {spot.description}
+                </p>
+
+                {/* What to order */}
+                {spot.whatToOrder && (
+                  <div className="flex items-start gap-1.5 mt-2">
+                    <Utensils
+                      size={12}
+                      className="text-gold mt-0.5 flex-shrink-0"
+                    />
+                    <p className="text-xs text-ink-light">
+                      <span className="font-medium text-gold">Order:</span>{" "}
+                      {spot.whatToOrder}
                     </p>
+                  </div>
+                )}
+
+                {/* Meta */}
+                <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-ink-light">
+                  <span className="flex items-center gap-1">
+                    <MapPin size={12} className="text-sage" />
+                    {spot.neighborhood}, {spot.city}
+                  </span>
+                  {spot.hours && <span>{spot.hours}</span>}
+                  {spot.itineraryDay !== undefined && (
+                    <span className="text-crimson font-medium">
+                      Day {spot.itineraryDay}
+                    </span>
                   )}
                 </div>
-                <PriceRange range={spot.priceRange} />
-              </div>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1.5 mt-2">
-                {spot.cuisineStyle.slice(0, 3).map((tag) => (
-                  <span
-                    key={tag}
-                    className="tag tag-restaurant"
-                  >
-                    {tag}
-                  </span>
-                ))}
-                <ReservationBadge status={spot.reservationStatus} />
-              </div>
-
-              {/* Description */}
-              <p className="text-sm text-ink-light mt-2 leading-relaxed">
-                {spot.description}
-              </p>
-
-              {/* What to order */}
-              {spot.whatToOrder && (
-                <div className="flex items-start gap-1.5 mt-2">
-                  <Utensils
-                    size={12}
-                    className="text-gold mt-0.5 flex-shrink-0"
-                  />
-                  <p className="text-xs text-ink-light">
-                    <span className="font-medium text-gold">Order:</span>{" "}
-                    {spot.whatToOrder}
-                  </p>
-                </div>
-              )}
-
-              {/* Meta */}
-              <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-ink-light">
-                <span className="flex items-center gap-1">
-                  <MapPin size={12} className="text-sage" />
-                  {spot.neighborhood}, {spot.city}
-                </span>
-                {spot.hours && <span>{spot.hours}</span>}
-                {spot.itineraryDay !== undefined && (
-                  <span className="text-crimson font-medium">
-                    Day {spot.itineraryDay}
-                  </span>
+                {/* Links */}
+                {(spot.mapsLink || spot.website) && (
+                  <div className="flex gap-3 mt-3">
+                    {spot.mapsLink && (
+                      <a
+                        href={spot.mapsLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-xs text-crimson hover:text-crimson-dark transition-colors"
+                      >
+                        <MapPin size={12} />
+                        Map
+                        <ExternalLink size={10} />
+                      </a>
+                    )}
+                    {spot.website && (
+                      <a
+                        href={spot.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-xs text-crimson hover:text-crimson-dark transition-colors"
+                      >
+                        Website
+                        <ExternalLink size={10} />
+                      </a>
+                    )}
+                  </div>
                 )}
               </div>
-
-              {/* Links */}
-              {(spot.mapsLink || spot.website) && (
-                <div className="flex gap-3 mt-3">
-                  {spot.mapsLink && (
-                    <a
-                      href={spot.mapsLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs text-crimson hover:text-crimson-dark transition-colors"
-                    >
-                      <MapPin size={12} />
-                      Map
-                      <ExternalLink size={10} />
-                    </a>
-                  )}
-                  {spot.website && (
-                    <a
-                      href={spot.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs text-crimson hover:text-crimson-dark transition-colors"
-                    >
-                      Website
-                      <ExternalLink size={10} />
-                    </a>
-                  )}
-                </div>
-              )}
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {filtered.length === 0 && (
           <div className="text-center py-12">
