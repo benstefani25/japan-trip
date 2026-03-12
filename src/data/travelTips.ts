@@ -27,8 +27,8 @@ export const travelTips: TipSection[] = [
         text: "The Shinkansen has both reserved and unreserved seating cars. Reserved seats guarantee you a spot and can be booked at ticket counters, ticket machines, or through the SmartEX app. Unreserved cars (jiyuuseki) are first-come, first-served — arrive 15-20 minutes early during peak times. Platform displays show car numbers and where to line up. Overhead racks fit most carry-on luggage, but oversized bags (over 160cm total dimensions) require a free reservation for luggage space behind the last row of seats.",
       },
       {
-        heading: "Taxis",
-        text: "Taxis in Japan are clean, safe, and metered — no need to negotiate fares. The rear left door opens and closes automatically, so don't try to open or shut it yourself. You can hail a taxi on the street (a red light on the dashboard means available), use a taxi stand, or book through apps like JapanTaxi or GO. Most taxis now accept credit cards and IC cards in addition to cash. Be aware of a late-night surcharge (typically 20%) that kicks in between 10:00 PM and 5:00 AM.",
+        heading: "Taxis & GO App",
+        text: "Taxis in Japan are clean, safe, and metered — no need to negotiate fares. The rear left door opens and closes automatically. Download the GO Taxi app before the trip — it's Japan's main ride-hailing app (like Uber) and works with credit cards. Set it up before departure. For your group of four, taxis make great sense for early 'beat the crowd' mornings — you split the fare four ways and save 30+ minutes vs. trains with transfers. Specific mornings to taxi: Fushimi Inari (Apr 26, ~15 min), Arashiyama (Apr 27, ~20 min), Kinkaku-ji (Apr 28, ~20 min vs. slow buses). You can also have your hotel arrange taxis the night before for early pickups. Late-night surcharge (20%) applies 10 PM - 5 AM.",
       },
       {
         heading: "Walking & Escalator Etiquette",
@@ -141,6 +141,28 @@ export const travelTips: TipSection[] = [
       {
         heading: "Lost Items",
         text: "Japan has an extraordinary culture of returning lost items. If you lose something on a train, go to the station's lost and found office (wasuremono center) — there's a very high chance it's been turned in. JR East has an online lost property search system in English. Items lost on the street are often brought to the nearest koban (police box). For items lost in taxis, contact the taxi company (your hotel can help with this). Keep a photo of important belongings like your wallet and bag on your phone to help describe lost items. Most lost items are held for 3-6 months before being disposed of, so you have time to file a claim even after leaving Japan.",
+      },
+    ],
+  },
+  {
+    title: "Pre-Trip Booking Checklist",
+    icon: "clipboard",
+    content: [
+      {
+        heading: "Reservations Still Needed",
+        text: "☐ Book farewell sushi omakase for May 2 evening (Sushi Nishizaki, Sushi Yasumitsu, or Onodera Toryumon). ☐ Book Shibuya Sky tickets for Apr 30 (sells out during Golden Week). ☐ Plan intentional unagi meal in Asakusa for May 1 lunch (Unatoto or Obana). ☐ Book Yakiniku Jumbo Hanare if going (check monthly reservation release dates on their website — extremely competitive during Golden Week). ☐ Book private tour for Nijo Castle (via MagicalTrip, Klook, or hotel concierge). ☐ Consider private tour for Fushimi Inari.",
+      },
+      {
+        heading: "Apps to Download Before Trip",
+        text: "☐ GO Taxi App — Japan's main ride-hailing app. Set up with credit card before departure. Essential for early morning temple visits. ☐ SmartEX — for booking Shinkansen tickets (works with non-Japanese credit cards). ☐ Google Maps — download offline maps for Tokyo and Kyoto. ☐ Suica/Pasmo — set up mobile IC card through Apple Wallet or Google Pay.",
+      },
+      {
+        heading: "Other Reminders",
+        text: "☐ Book taxi for Apr 27 Arashiyama morning (via hotel night before or GO app). ☐ Have a rain swap plan for Arashiyama (Apr 27) — swap with Apr 28 indoor activities if needed. ☐ Visit the free Tokyo Metropolitan Government Building observation deck one evening — it's literally next door to the Keio Plaza Hotel. ☐ Remember to order the beef rice (takikomi gohan) at time of reservation if booking Jumbo Hanare.",
+      },
+      {
+        heading: "Private Tour Recommendations",
+        text: "Nijo Castle benefits most from a guide — they explain the nightingale floors, Tokugawa history, and painted screen meanings. Without context it's a beautiful building; with a guide it's a history lesson that comes alive. Fushimi Inari with a guide takes you to sections most tourists never see (including the secret bamboo grove). Book through MagicalTrip, Klook, or ask your hotel concierge.",
       },
     ],
   },

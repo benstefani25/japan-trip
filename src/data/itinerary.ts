@@ -401,7 +401,7 @@ export const itinerary: ItineraryDay[] = [
         lng: 135.7723,
         description:
           'The most iconic shrine in all of Japan, famous for its seemingly infinite corridor of thousands of vermillion torii gates winding up the forested slopes of Mount Inari. The shrine is dedicated to Inari, the Shinto god of rice and prosperity, and the gates have been donated by businesses and individuals over centuries. Walking through the tunnels of orange gates with dappled forest light filtering through is a genuinely transcendent experience. The full hike to the summit takes about 2-3 hours, but even walking the first section is extraordinary.',
-        tips: 'Start as early as possible — by 6:30 AM you can have the lower gates almost to yourself. The crowds become intense by 9:00 AM, especially on weekends. The full loop to the summit is about 4 km with steady elevation gain. Wear comfortable shoes. There are small tea houses and rest stops along the trail.',
+        tips: '🚕 TAXI RECOMMENDED: From The Blossom Kyoto, ~15 min by taxi vs. 20+ min by train with transfer. Use the GO Taxi app or have the hotel arrange pickup the night before. Start as early as possible — by 6:30 AM you can have the lower gates almost to yourself. The crowds become intense by 9:00 AM. SECRET TIP: There is a small bamboo grove along the trail past the Yotsutsuji intersection (~30-45 min up). It\'s not as grand as Arashiyama\'s but peaceful and almost nobody goes there. If you have energy past the viewpoint, keep an eye out for a smaller trail branching off the main path.',
         duration: '1.5-3 hours (depending on how far you hike)',
         priceRange: 'Free',
         mapsLink: 'https://www.google.com/maps/place/Fushimi+Inari-taisha/@35.0328,135.7723,16z',
@@ -542,7 +542,7 @@ export const itinerary: ItineraryDay[] = [
         lng: 135.6713,
         description:
           'Walk through a towering corridor of bamboo that stretches skyward, their slender stalks swaying gently and creating an ethereal rustling soundtrack. The path winds through the grove for several hundred meters, and when the light filters through the dense canopy it creates an otherworldly green glow. This is one of the most photographed spots in Japan for good reason — it genuinely feels like stepping into another realm.',
-        tips: 'Arrive by 7:00 AM or earlier. This is non-negotiable if you want to experience the grove without being shoulder-to-shoulder with tour groups. By 9:00 AM the path becomes extremely crowded and the magic is diminished. Early morning light through the bamboo is extraordinary.',
+        tips: '🚕 TAXI RECOMMENDED: ~20-25 min by taxi from hotel vs. 30+ min by train. Book the night before via hotel or GO Taxi app. Arrive by 7:00 AM or earlier — non-negotiable if you want the grove without tour groups. By 9:00 AM it\'s extremely crowded. Early morning light through the bamboo is extraordinary.',
         duration: '30-45 minutes for the walk',
         priceRange: 'Free',
         mapsLink: 'https://www.google.com/maps/place/Arashiyama+Bamboo+Grove/@35.0173,135.6713,17z',
@@ -659,7 +659,7 @@ export const itinerary: ItineraryDay[] = [
         lng: 135.7292,
         description:
           'The Golden Pavilion is one of the most stunning sights in Japan: a three-story Zen Buddhist temple completely covered in gold leaf, reflected in the mirror-still waters of Kyokochi Pond. Originally built as a retirement villa for Shogun Ashikaga Yoshimitsu in 1397, the pavilion and its surrounding gardens represent the height of Muromachi-period refinement. Every angle reveals a different composition, and the reflection on a calm day is breathtaking. The surrounding strolling garden is meticulously maintained and beautiful in its own right.',
-        tips: 'Arrive right when it opens at 9:00 AM. The first 30 minutes are the most peaceful. The ticket is a beautiful calligraphy charm (ofuda) — keep it as a souvenir. The best photo spot is immediately upon entering, at the edge of the pond. A second, less-known vantage point is from the hillside path behind the pavilion.',
+        tips: '🚕 TAXI RECOMMENDED: ~20 min by taxi vs. 30-40 min by bus (buses to Kinkaku-ji are notoriously slow/crowded). Arrive right when it opens at 9:00 AM — the first 30 minutes are the most peaceful. The ticket is a beautiful calligraphy charm (ofuda) — keep it as a souvenir. The garden surrounding the pavilion is a carefully composed landscape with Kyokochi Pond, moss-covered islands, and sculpted pine trees — walk the full circuit path, don\'t rush.',
         duration: '1-1.5 hours',
         priceRange: '$ (400 yen admission)',
         mapsLink: 'https://www.google.com/maps/place/Kinkaku-ji/@35.0394,135.7292,17z',
@@ -847,15 +847,27 @@ export const itinerary: ItineraryDay[] = [
         mapsLink: 'https://www.google.com/maps/place/Omoide+Yokocho/@35.6938,139.6989,18z',
         curatedPicks: [
           {
-            name: 'Omoide Yokocho Yakitori Stalls',
-            nameJa: '思い出横丁',
-            description: 'Dozens of tiny counters grilling yakitori over charcoal. Pick any stall with open seats — they are all good. The experience is the attraction as much as the food.',
-            whatToOrder: 'Assorted yakitori set, cold draft beer, and grilled mochi',
+            name: 'Wakoto',
+            nameJa: 'わこと',
+            description: 'Excellent offal (horumon) yakitori. Adventurous but delicious — a local favorite for those willing to go beyond the usual cuts.',
+            whatToOrder: 'Horumon moriawase (offal assortment)',
+          },
+          {
+            name: 'Kabuto',
+            nameJa: 'カブト',
+            description: 'One of the oldest stalls. Known for grilled eel head skewers and unusual cuts. Cash only, no English menu, but the staff are friendly and point-and-order works great.',
+            whatToOrder: 'Grilled eel head, assorted skewers',
+          },
+          {
+            name: 'Asadachi',
+            nameJa: 'あさだち',
+            description: 'Known for exotic proteins (frog, etc.) but also does excellent standard yakitori. An experience for the adventurous eater.',
+            whatToOrder: 'Standard yakitori moriawase (assorted set) to start',
           },
           {
             name: 'Kabukicho',
             nameJa: '歌舞伎町',
-            description: 'Tokyo\'s most famous entertainment district. The giant neon signs, Godzilla head peering over a building, and sheer human density make it worth a walkthrough.',
+            description: 'Tokyo\'s most famous entertainment district. After eating, walk through for the neon signs, Godzilla head peering over a building, and sheer human density.',
           },
         ],
       },
@@ -929,6 +941,17 @@ export const itinerary: ItineraryDay[] = [
             name: 'Cat Street (Kyuuya Kaido)',
             nameJa: 'キャットストリート',
             description: 'A winding backstreet connecting Harajuku and Shibuya, lined with independent boutiques, streetwear shops, cafes, and vintage stores.',
+          },
+          {
+            name: 'Amam Dacotan',
+            nameJa: 'アマムダコタン',
+            description: 'Famous bakery with lines out the door. Exceptional pastries and bread with creative Japanese-influenced fillings. Worth the wait.',
+            whatToOrder: 'Signature croissant, seasonal specialty bread',
+          },
+          {
+            name: 'Kiddy Land',
+            nameJa: 'キデイランド',
+            description: 'Massive toy store that\'s fun even for adults. Japanese toys, character goods, and novelties you won\'t find anywhere else.',
           },
         ],
       },
@@ -1027,7 +1050,7 @@ export const itinerary: ItineraryDay[] = [
         lng: 139.7394,
         description:
           'TeamLab Borderless is a mind-bending immersive digital art museum where massive digital projections flow from room to room, responding to your presence and touch. Waterfalls cascade down walls, flowers bloom and scatter at your feet, and entire rooms transform into infinite universes of light and color. It is unlike anything you have experienced before — part art gallery, part playground, part meditation. Allow yourself to wander, get lost, and be surprised.',
-        tips: '✅ BOOKED: Entry time 08:30-09:00 AM. Arrive by 8:30 — you must enter during your time slot. Wear light-colored clothing (the projections show up beautifully on white). Wear comfortable shoes as you will be walking and standing on mirrors. Budget at least 2-2.5 hours inside. The EN Tea House inside serves tea in bowls where digital flowers bloom — don\'t miss it!',
+        tips: '✅ BOOKED: Entry time 08:30-09:00 AM. Arrive by 8:30 — you must enter during your time slot. 🚕 Taxi from Keio Plaza to Azabudai Hills is ~20-25 min (subway also fine at ~25-30 min). Wear light-colored clothing (the projections show up beautifully on white). Wear comfortable shoes. Budget at least 2-2.5 hours inside. The EN Tea House inside serves tea in bowls where digital flowers bloom — don\'t miss it!',
         duration: '2-2.5 hours',
         priceRange: '$$ (3,800 yen)',
         reservationId: 'teamlab-borderless',
@@ -1122,11 +1145,23 @@ export const itinerary: ItineraryDay[] = [
           {
             name: 'Albatross',
             nameJa: 'アルバトロス',
-            description: 'A three-story bar (large by Golden Gai standards) with a gothic chandelier-lit interior, welcoming to foreigners, and known for strong cocktails.',
+            description: 'Three stories (huge by Golden Gai standards), gothic/antique interior with a chandelier on the top floor. Tourist-friendly and a good starting point.',
           },
           {
             name: 'Bar Plastic Model',
-            description: 'A quirky bar decorated floor to ceiling with assembled plastic models (Gundam, cars, robots). The owner is friendly and the atmosphere is wonderfully nerdy.',
+            description: 'Covered floor to ceiling in assembled plastic models (Gundam, cars, robots). Quirky, fun, and the owner is friendly.',
+          },
+          {
+            name: 'Ace\'s',
+            description: 'Friendly owner, excellent whisky selection, and very welcoming to foreigners. Small and intimate — the quintessential Golden Gai experience.',
+          },
+          {
+            name: 'Death Match in Hell',
+            description: 'Horror/punk themed — sounds intense but the owner is lovely. Cheap drinks and a genuinely memorable experience. Don\'t let the name scare you.',
+          },
+          {
+            name: 'Champion',
+            description: 'One of the original Golden Gai bars, since the 1950s. No frills, cheap drinks, eclectic crowd. As authentic as it gets.',
           },
         ],
       },
@@ -1189,6 +1224,12 @@ export const itinerary: ItineraryDay[] = [
           {
             name: 'Bonus Track',
             description: 'A curated development of small independent shops, cafes, and a bookstore. Feels like a creative village within the neighborhood.',
+          },
+          {
+            name: 'Bear Pond Espresso',
+            nameJa: 'ベアポンドエスプレッソ',
+            description: 'Cult-status coffee shop. The owner is a perfectionist and the espresso pulls are incredibly precise. Small, intense, and unforgettable.',
+            whatToOrder: 'Angel Stain espresso (their signature)',
           },
           {
             name: 'Vintage Clothing Shops',
@@ -1264,17 +1305,38 @@ export const itinerary: ItineraryDay[] = [
       {
         time: '19:00',
         endTime: '21:00',
-        type: 'meal',
+        type: 'exploration-zone',
         name: 'Farewell Dinner — Omakase or Special Meal',
-        category: 'Dinner',
-        neighborhood: 'Ginza / Shinjuku / Shibuya',
+        category: 'Dinner (Reservation Needed)',
+        neighborhood: 'Ginza / Shinjuku / Hongo',
         lat: 35.6812,
         lng: 139.7671,
         description:
-          'Your final dinner in Japan deserves to be something extraordinary. Consider an omakase sushi experience where the chef selects and prepares each piece of nigiri before you at the counter. Alternatively, splurge on a wagyu yakiniku (grilled beef) course, a tempura counter experience, or PST pizza in Shibuya if you\'re craving the best Neapolitan pizza in Tokyo. Whatever you choose, let this meal be a celebration of an incredible food journey across Japan.',
-        tips: '⚠️ RESERVATION RECOMMENDED: For omakase sushi, Ginza and Roppongi have the highest concentration of excellent options. Budget-friendly omakase exists — look for newer restaurants building their reputation. Ask the hotel concierge for help booking. For PST pizza, ask the hotel to call ahead as it books up.',
+          'Your final dinner in Japan deserves to be extraordinary. Below are three paths — each would be a perfect farewell. The key is to book well in advance, especially during Golden Week.',
+        isExplorationZone: true,
+        howToApproach: '⚠️ RESERVATION NEEDED: Book as far in advance as possible. Hotel concierge can help. Golden Week makes all of these harder to get — start trying now.',
+        tips: 'Budget ¥10,000-20,000 per person for mid-range omakase or Jumbo Hanare. PST pizza is the budget-friendly option at ¥2,000-3,000 per person.',
         priceRange: '$$$-$$$$',
         mapsLink: 'https://www.google.com/maps/place/Tokyo/@35.6812,139.7671,13z',
+        curatedPicks: [
+          {
+            name: 'Sushi Omakase',
+            description: 'Sushi Nishizaki (Roppongi) — newer chef, great value. Sushi Yasumitsu (Shinjuku) — close to hotel. Sushi Ginza Onodera Toryumon — standing counter, superb quality.',
+            whatToOrder: 'Omakase course (chef\'s choice, ~¥10,000-20,000/person)',
+          },
+          {
+            name: 'Yakiniku Jumbo Hanare',
+            nameJa: '焼肉ジャンボはなれ',
+            description: 'One of Tokyo\'s top yakiniku spots — exclusively A5 Kuroge wagyu, hand-cut by the chef. The signature Noharayaki and beef rice (order at booking!) are legendary. ~25 min from Shinjuku. Extremely hard reservation.',
+            whatToOrder: 'Noharayaki, A5 wagyu assortment, beef rice (takikomi gohan — must order at reservation time)',
+          },
+          {
+            name: 'PST Pizza (Budget Option)',
+            nameJa: 'PST',
+            description: 'If you want something casual and delicious, the best Neapolitan pizza in Tokyo. Wood-fired, perfect crust. A different vibe but no less memorable.',
+            whatToOrder: 'Margherita, seasonal special pizza',
+          },
+        ],
       },
     ],
   },
