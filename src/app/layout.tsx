@@ -15,7 +15,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "Japan 2026 — Family Trip",
-  description: "April 23 – May 3, 2026 · Tokyo & Kyoto",
+  description: "April 24 – May 3, 2026 · Tokyo, Kyoto & Tokyo",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

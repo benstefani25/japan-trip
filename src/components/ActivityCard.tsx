@@ -11,9 +11,11 @@ import {
   Utensils,
   Compass,
   Banknote,
+  Ticket,
+  Phone,
 } from "lucide-react";
 import { useState } from "react";
-import type { ItineraryEntry, CuratedPick } from "@/data/itinerary";
+import type { ItineraryEntry, CuratedPick, ReservationDetails } from "@/data/itinerary";
 
 function getCategoryTag(category: string) {
   const map: Record<string, string> = {
@@ -43,6 +45,49 @@ function PriceRange({ range }: { range: string }) {
         </span>
       ))}
     </span>
+  );
+}
+
+function ReservationBadge({ details }: { details: ReservationDetails }) {
+  return (
+    <div className="reservation-badge mt-3 p-2.5 rounded-lg bg-crimson/5 border border-crimson/20">
+      <div className="flex items-center gap-1.5 mb-1">
+        <Ticket size={13} className="text-crimson flex-shrink-0" />
+        <span className="text-xs font-semibold text-crimson uppercase tracking-wide">
+          Reservation
+        </span>
+      </div>
+      <div className="space-y-0.5">
+        {details.confirmationNumber && (
+          <p className="text-xs text-ink">
+            <span className="font-medium">Conf#:</span>{" "}
+            <span className="font-mono">{details.confirmationNumber}</span>
+          </p>
+        )}
+        {details.bookedUnder && (
+          <p className="text-xs text-ink">
+            <span className="font-medium">Under:</span> {details.bookedUnder}
+          </p>
+        )}
+        {details.partySize && (
+          <p className="text-xs text-ink">
+            <span className="font-medium">Party:</span> {details.partySize}
+          </p>
+        )}
+        {details.phone && (
+          <a
+            href={`tel:${details.phone}`}
+            className="flex items-center gap-1 text-xs text-crimson hover:text-crimson-dark transition-colors"
+          >
+            <Phone size={11} />
+            {details.phone}
+          </a>
+        )}
+        {details.notes && (
+          <p className="text-xs text-ink-light mt-1">{details.notes}</p>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -140,6 +185,11 @@ export function ActivityCard({ entry }: { entry: ItineraryEntry }) {
               {entry.tips}
             </p>
           </div>
+        )}
+
+        {/* Reservation badge */}
+        {entry.reservationDetails && (
+          <ReservationBadge details={entry.reservationDetails} />
         )}
 
         {/* Expandable details */}
@@ -262,6 +312,11 @@ function ExplorationZoneCard({ entry }: { entry: ItineraryEntry }) {
               </div>
             )}
           </div>
+        )}
+
+        {/* Reservation badge */}
+        {entry.reservationDetails && (
+          <ReservationBadge details={entry.reservationDetails} />
         )}
 
         {/* Location link */}

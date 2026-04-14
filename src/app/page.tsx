@@ -18,7 +18,7 @@ export default function ItineraryPage() {
           Japan 2026
         </h1>
         <p className="text-xs text-ink-light">
-          April 23 – May 3 · Tokyo &amp; Kyoto
+          April 24 – May 3 · Tokyo, Kyoto &amp; Tokyo
         </p>
       </div>
 
@@ -53,20 +53,20 @@ export default function ItineraryPage() {
         {/* Day navigation */}
         <div className="flex justify-between items-center mt-8 pt-4 border-t border-stone-light">
           <button
-            onClick={() => setSelectedDay(Math.max(0, selectedDay - 1))}
-            disabled={selectedDay === 0}
+            onClick={() => setSelectedDay(Math.max(1, selectedDay - 1))}
+            disabled={selectedDay === 1}
             className="text-sm font-medium text-crimson disabled:text-stone disabled:cursor-not-allowed hover:text-crimson-dark transition-colors"
           >
             &larr; Previous Day
           </button>
           <span className="text-xs text-ink-light">
-            Day {day.dayNumber} of {itinerary.length - 1}
+            Day {day.dayNumber} of {itinerary[itinerary.length - 1].dayNumber}
           </span>
           <button
             onClick={() =>
-              setSelectedDay(Math.min(itinerary.length - 1, selectedDay + 1))
+              setSelectedDay(Math.min(itinerary[itinerary.length - 1].dayNumber, selectedDay + 1))
             }
-            disabled={selectedDay === itinerary.length - 1}
+            disabled={selectedDay === itinerary[itinerary.length - 1].dayNumber}
             className="text-sm font-medium text-crimson disabled:text-stone disabled:cursor-not-allowed hover:text-crimson-dark transition-colors"
           >
             Next Day &rarr;

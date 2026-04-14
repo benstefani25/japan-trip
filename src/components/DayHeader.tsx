@@ -1,4 +1,4 @@
-import { MapPin, Building2 } from "lucide-react";
+import { MapPin, Building2, AlertTriangle } from "lucide-react";
 import type { ItineraryDay } from "@/data/itinerary";
 
 export function DayHeader({ day }: { day: ItineraryDay }) {
@@ -26,6 +26,16 @@ export function DayHeader({ day }: { day: ItineraryDay }) {
       <h2 className="font-serif text-2xl font-bold text-ink leading-tight">
         {day.title}
       </h2>
+
+      {/* Golden Week note */}
+      {day.goldenWeekNote && (
+        <div className="mt-3 flex items-start gap-2 p-3 rounded-lg bg-gold/10 border border-gold/30">
+          <AlertTriangle size={16} className="text-gold mt-0.5 flex-shrink-0" />
+          <p className="text-xs text-ink leading-relaxed">
+            {day.goldenWeekNote}
+          </p>
+        </div>
+      )}
 
       {/* Hotel info */}
       {day.hotel && (
