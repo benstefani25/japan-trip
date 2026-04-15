@@ -172,3 +172,68 @@ body {
 /* Price range dots */
 .price-active { color: var(--color-gold); }
 .price-inactive { color: var(--color-stone); }
+
+/* Podcast player */
+.podcast-player {
+  border-left: 3px solid var(--color-crimson);
+}
+
+/* Custom range input for podcast progress */
+.podcast-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    var(--color-crimson) 0%,
+    var(--color-crimson) var(--progress, 0%),
+    var(--color-stone-light) var(--progress, 0%),
+    var(--color-stone-light) 100%
+  );
+  outline: none;
+  cursor: pointer;
+}
+.podcast-range:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.podcast-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-crimson);
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+.podcast-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-crimson);
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+.podcast-range:disabled::-webkit-slider-thumb {
+  background: var(--color-stone);
+}
+.podcast-range:disabled::-moz-range-thumb {
+  background: var(--color-stone);
+}
+
+/* Podcast transcript */
+.podcast-transcript {
+  max-height: 400px;
+  overflow-y: auto;
+}
+.podcast-transcript::-webkit-scrollbar {
+  width: 4px;
+}
+.podcast-transcript::-webkit-scrollbar-thumb {
+  background: var(--color-stone);
+  border-radius: 2px;
+}

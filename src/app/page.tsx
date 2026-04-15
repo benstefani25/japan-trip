@@ -2,13 +2,16 @@
 
 import { useState } from "react";
 import { itinerary } from "@/data/itinerary";
+import { podcastEpisodes } from "@/data/podcasts";
 import { DaySelector } from "@/components/DaySelector";
 import { DayHeader } from "@/components/DayHeader";
 import { ActivityCard } from "@/components/ActivityCard";
+import { PodcastPlayer } from "@/components/PodcastPlayer";
 
 export default function ItineraryPage() {
   const [selectedDay, setSelectedDay] = useState(1);
   const day = itinerary.find((d) => d.dayNumber === selectedDay) || itinerary[0];
+  const podcast = podcastEpisodes.find((ep) => ep.dayNumber === selectedDay);
 
   return (
     <div>
@@ -32,6 +35,9 @@ export default function ItineraryPage() {
       {/* Day content */}
       <div className="max-w-3xl mx-auto px-4 py-6">
         <DayHeader day={day} />
+
+        {/* Podcast player */}
+        {podcast && <PodcastPlayer episode={podcast} />}
 
         {/* Timeline */}
         <div className="space-y-4 relative">
