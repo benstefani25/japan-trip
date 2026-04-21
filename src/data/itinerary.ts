@@ -105,13 +105,21 @@ export const itinerary: ItineraryDay[] = [
       },
       {
         type: 'transit',
-        name: 'Transfer to Daiwa Roynet Hotel',
+        time: '17:00',
+        name: 'Transfeero Private Transfer to Hotel',
         category: 'Transit',
-        neighborhood: 'Kyobashi',
+        neighborhood: 'Haneda → Kyobashi',
         description:
-          'Take the Keikyu Line from Haneda to Shinagawa Station, then transfer to JR or Metro to Kyobashi/Tokyo Station area. The hotel is a short walk from Tokyo Station (Yaesu exit) or Kyobashi Station.',
-        tips: 'The Keikyu Line to Shinagawa is about 15 minutes. From Shinagawa, take the JR Yamanote Line one stop to Tokyo Station.',
-        duration: '30-45 min',
+          'Marge booked a private Transfeero van transfer directly from Haneda Airport to the Daiwa Roynet Hotel Tokyo Kyobashi PREMIER. The driver will meet you at the arrivals area — look for a sign with the name Marge Stefani. Van fits all 4 passengers comfortably with luggage.',
+        tips: 'Driver details will be sent by text, email, and push notification 6 hours before pickup. Contact Transfeero support via WhatsApp at +44 20 785 52 543 if needed.',
+        duration: '~45 min',
+        reservationDetails: {
+          confirmationNumber: '78504297',
+          bookedUnder: 'Marge Stefani',
+          partySize: 4,
+          phone: '+16306511810',
+          notes: 'Transfeero Van Standard · USD $117.00 · Pickup 5:00 PM at HND Arrivals',
+        },
       },
       {
         type: 'hotel',
